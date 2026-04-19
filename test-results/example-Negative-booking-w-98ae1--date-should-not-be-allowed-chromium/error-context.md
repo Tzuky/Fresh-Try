@@ -1,0 +1,90 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "" [ref=e2] [cursor=pointer]:
+    - /url: "#"
+    - generic [ref=e3]: 
+  - navigation [ref=e4]:
+    - list [ref=e5]:
+      - link "" [ref=e6] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e7]: 
+      - listitem [ref=e8]:
+        - link "CURA Healthcare" [ref=e9] [cursor=pointer]:
+          - /url: ./
+      - listitem [ref=e10]:
+        - link "Home" [ref=e11] [cursor=pointer]:
+          - /url: ./
+      - listitem [ref=e12]:
+        - link "History" [ref=e13] [cursor=pointer]:
+          - /url: history.php#history
+      - listitem [ref=e14]:
+        - link "Profile" [ref=e15] [cursor=pointer]:
+          - /url: profile.php#profile
+      - listitem [ref=e16]:
+        - link "Logout" [ref=e17] [cursor=pointer]:
+          - /url: authenticate.php?logout
+  - banner [ref=e18]:
+    - generic [ref=e19]:
+      - heading "CURA Healthcare Service" [level=1] [ref=e20]
+      - heading "We Care About Your Health" [level=3] [ref=e21]
+      - link "Make Appointment" [ref=e22] [cursor=pointer]:
+        - /url: ./index.php#appointment
+  - generic [ref=e25]:
+    - generic [ref=e26]:
+      - heading "Appointment Confirmation" [level=2] [ref=e27]
+      - paragraph [ref=e28]: "Please be informed that your appointment has been booked as following:"
+      - separator [ref=e29]
+    - generic [ref=e30]:
+      - generic [ref=e32]: Facility
+      - paragraph [ref=e34]: Seoul CURA Healthcare Center
+    - generic [ref=e35]:
+      - generic [ref=e37]: Apply for hospital readmission
+      - paragraph [ref=e39]: "Yes"
+    - generic [ref=e40]:
+      - generic [ref=e42]: Healthcare Program
+      - paragraph [ref=e44]: Medicare
+    - generic [ref=e45]:
+      - generic [ref=e47]: Visit Date
+      - paragraph [ref=e49]: 15/03/2026
+    - generic [ref=e50]:
+      - generic [ref=e52]: Comment
+      - paragraph [ref=e54]: Past date test - should not succeed
+    - paragraph [ref=e56]:
+      - link "Go to Homepage" [ref=e57] [cursor=pointer]:
+        - /url: https://katalon-demo-cura.herokuapp.com/
+  - contentinfo [ref=e58]:
+    - generic [ref=e61]:
+      - heading "CURA Healthcare Service" [level=4] [ref=e62]:
+        - strong [ref=e63]: CURA Healthcare Service
+      - paragraph [ref=e64]:
+        - text: Atlanta 550 Pharr Road NE Suite 525
+        - text: Atlanta, GA 30305
+      - list [ref=e65]:
+        - listitem [ref=e66]:
+          - generic [ref=e67]: 
+          - text: (678) 813-1KMS
+        - listitem [ref=e68]:
+          - generic [ref=e69]: 
+          - link "info@katalon.com" [ref=e70] [cursor=pointer]:
+            - /url: mailto:info@katalon.com
+      - list [ref=e71]:
+        - listitem [ref=e72]:
+          - link "" [ref=e73] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e74]: 
+        - listitem [ref=e75]:
+          - link "" [ref=e76] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e77]: 
+        - listitem [ref=e78]:
+          - link "" [ref=e79] [cursor=pointer]:
+            - /url: "#"
+            - generic [ref=e80]: 
+      - separator [ref=e81]
+      - paragraph [ref=e82]: Copyright © CURA Healthcare Service 2026
+    - link "" [ref=e83] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=e84]: 
+```

@@ -115,15 +115,20 @@ test('Negative: booking with a past date should not be allowed', async ({ page }
   await page.locator('#radio_program_medicare').click();
   await makeAppointmentPage.commentInput.fill('Past date test - should not succeed');
 
-  // Manually enter a past date by clearing the field and typing
-  await makeAppointmentPage.visitDateInput.fill('01/01/2020');
+  // Use the datepicker UI to select a date in the past month.
+  // Using the UI ensures the value is set identically to a real user 
+  // (avoiding raw 'fill' constraints that might trigger 'empty field' errors).
+  await makeAppointmentPage.visitDateInput.click();
+  await page.locator('th.prev').first().click();
+  await page.getByRole('cell', { name: '15', exact: true }).first().click();
 
   // Attempt to book
   await makeAppointmentPage.bookAppointmentBtn.click();
 
-  // The application does NOT proceed — it stays on the appointment page
-  // because past dates are rejected.
-  await expect(page.locator('h2', { hasText: 'Make Appointment' })).toBeVisible();
+  // The application SHOULD NOT proceed — it should stay on the appointment page.
+  // NOTE: Because there is a bug in the application that ALLOWS past dates,
+  // this assertion will FAIL, which accurately catches the defect.
+  await expect(page.locator('h2', { hasText: 'Make Appointment' })).toBeVisible({ timeout: 5000 });
 
   // Verify we did NOT reach the confirmation page
   await expect(page.locator('h2', { hasText: 'Appointment Confirmation' })).not.toBeVisible();
