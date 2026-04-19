@@ -71,3 +71,60 @@ test('Seoul appointment with history verification', async ({ page }) => {
   // Verify the comment is shown in the history
   await expect(historyPage.getComment(0)).toHaveText(testComment);
 });
+
+// --- Negative Tests ---
+
+test('Negative: login with invalid credentials should fail', async ({ page }) => {
+  const homePage = new HomePage(page);
+  const loginPage = new LoginPage(page);
+
+  // Navigate to login page
+  await homePage.goto();
+  await homePage.clickMakeAppointment();
+
+  // Attempt login with wrong credentials
+  await loginPage.login('InvalidUser', 'WrongPassword123');
+
+  // Verify error message is displayed
+  await expect(loginPage.errorMessage).toBeVisible();
+  await expect(loginPage.errorMessage).toContainText(
+    'Login failed! Please ensure the username and password are valid.'
+  );
+
+  // Verify we are still on the login page (not redirected to appointment page)
+  expect(await loginPage.isOnLoginPage()).toBe(true);
+
+  // Verify the appointment page heading is NOT visible
+  await expect(page.locator('h2', { hasText: 'Make Appointment' })).not.toBeVisible();
+});
+
+test('Negative: booking with a past date should not be allowed', async ({ page }) => {
+  const homePage = new HomePage(page);
+  const loginPage = new LoginPage(page);
+  const makeAppointmentPage = new MakeAppointmentPage(page);
+  const confirmationPage = new ConfirmationPage(page);
+
+  // Navigate and log in
+  await homePage.goto();
+  await homePage.clickMakeAppointment();
+  await loginPage.login('John Doe', 'ThisIsNotAPassword');
+
+  // Fill the appointment form
+  await makeAppointmentPage.facilityDropdown.selectOption('Seoul CURA Healthcare Center');
+  await makeAppointmentPage.readmissionCheckbox.check();
+  await page.locator('#radio_program_medicare').click();
+  await makeAppointmentPage.commentInput.fill('Past date test - should not succeed');
+
+  // Manually enter a past date by clearing the field and typing
+  await makeAppointmentPage.visitDateInput.fill('01/01/2020');
+
+  // Attempt to book
+  await makeAppointmentPage.bookAppointmentBtn.click();
+
+  // The application does NOT proceed — it stays on the appointment page
+  // because past dates are rejected.
+  await expect(page.locator('h2', { hasText: 'Make Appointment' })).toBeVisible();
+
+  // Verify we did NOT reach the confirmation page
+  await expect(page.locator('h2', { hasText: 'Appointment Confirmation' })).not.toBeVisible();
+});
